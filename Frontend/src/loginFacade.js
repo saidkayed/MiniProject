@@ -12,7 +12,9 @@ function handleHttpErrors(res) {
 
 
 class loginFacade {
-    makeOptions(method,body) {
+    
+  
+  makeOptions(method,body) {
       var opts = {
         method: method,
         headers: {
@@ -23,7 +25,7 @@ class loginFacade {
      
       if (body) {
         opts.body = JSON.stringify(body);
-        console.log(body)
+        //console.log(body)
       }
       return opts;
       
@@ -36,6 +38,20 @@ login = async (userName,password,longitude,latitude) =>{
     .then(handleHttpErrors)
 }
 
+
+//bruges ikke længere pga populate i backenden
+getUserbyID  = async (id) => {
+  const options = this.makeOptions("POST",{id});
+  return await fetch(`${URL}/id/?id=${id}`,options)
+  .then(handleHttpErrors)
+}
+
+getPositions = async () => {
+  const options = this.makeOptions("GET");
+  return await fetch(`${URL}/pos`,options)
+  .then(handleHttpErrors)
+  
+}
 
 create = async (firstName,lastName,userName,password,email) =>{
 

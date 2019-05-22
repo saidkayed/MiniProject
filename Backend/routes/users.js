@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var userFacade = require('../facades/UserFacade');
 var Pos = require("../models/Position");
-var sletmig = "hej";
 var sletmig2;
 
 /* GET users listing. */
@@ -83,5 +82,20 @@ if(sletmig2.length === 0){
   }
 
 })
+
+router.get('/pos',async function(req,res){
+  await Pos.find({}).populate('user')
+  .then(doc =>{
+     res.json(doc);
+  })
+  })
+
+  //bruges ikke længere
+  router.post('/id', async function(req,res){
+    var id = req.query.id;
+    await userFacade.getUserById(id).then(doc =>{
+      res.json(doc);
+    });
+  })
 
 module.exports = router;

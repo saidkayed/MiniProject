@@ -28,6 +28,10 @@ async function getUserByName(userName){
     return await User.find({"userName" : userName});
 }
 
+async function getUserById(id){
+    return await User.findById(id);
+}
+
 async function deleteUser(userName){
    return await User.deleteOne({"userName" : userName});
 }
@@ -37,5 +41,7 @@ module.exports =
     addUsers,
     getAllUser,
     getUserByName,
-    deleteUser
+    deleteUser,
+    getUserById
+
 }
