@@ -3,7 +3,7 @@ const filesToCache = [
 
 ];
 
-const staticCacheName = 'pages-cache-v1';
+const staticCacheName = 'pages-cache-v4';
 
 //installere Service Worker
 self.addEventListener('install', event => {
@@ -16,6 +16,20 @@ self.addEventListener('install', event => {
   );
   self.skipWaiting();
 });
+
+self.addEventListener('activate', event =>{
+  console.log("is active");
+  caches.keys().then(function(cacheNames) {
+    return Promise.all(
+      cacheNames.map(function(cacheName) {
+        if(cacheName != staticCacheName) {
+          return caches.delete(cacheName);
+        }
+      })
+    );
+  });
+})
+
 
 //Når du er offline vil den modtage fetch kald, og vil prøve at finde den caschede side, hvis den er gemt.
 self.addEventListener('fetch', event => {
